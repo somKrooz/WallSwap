@@ -1,0 +1,10 @@
+#pragma once
+#include "Ini.h"
+
+bool checkExistance();
+char* getConfigPath();
+bool compare(const char* src,const char* tar);
+const char* getCurrentModule(IniFile* ini);
+const char* getRandomWallpaper(const char* path);
+void changeWallpaper(const char* path); 
+const char* getWallpaperFromWeb(const char* path);
