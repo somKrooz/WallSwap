@@ -1,4 +1,4 @@
-#include "Ini.h"
+#include "configParser.h"
 #include "utility.h"
 #include "stdio.h"
 #include "string.h"

@@ -1,5 +1,5 @@
 #pragma once
-#include "Ini.h"
+#include "configParser.h"
 
 bool checkExistance();
 char* getConfigPath();

@@ -1,7 +1,7 @@
 #include "utility.h"
 #include "stdlib.h"
 #include "stdio.h"
-#include "Ini.h"
+#include "configParser.h"
 #include "string.h"
 #include "time.h"
 
