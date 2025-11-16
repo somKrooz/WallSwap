@@ -1,20 +1,20 @@
 #pragma once
-#define MAX_SECTIONS 16
-#define MAX_KEYS 16
+#define MAX_COUNT 16
+#define MAX_CHAR 32
 
 typedef struct {
-    char key[64];
-    char value[255];
+    char key[MAX_CHAR];
+    char value[MAX_CHAR];
 } Entry;
 
 typedef struct {
-    char name[64];           
-    Entry parms[MAX_KEYS];   
+    char name[MAX_CHAR];           
+    Entry parms[MAX_COUNT];   
     int size;                
 } ConfigEntry;
 
 typedef struct {
-    ConfigEntry sections[MAX_SECTIONS];
+    ConfigEntry sections[MAX_COUNT];
     int count;
 } IniFile;
 

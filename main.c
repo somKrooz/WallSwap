@@ -4,6 +4,7 @@
 #include "utility.h"
 #include "time.h"
 
+
 void ArgsParser(int argc , char** argv, IniFile* ini)
 {
 	for(int i=1; i<argc; i++)

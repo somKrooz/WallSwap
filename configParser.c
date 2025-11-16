@@ -3,7 +3,6 @@
 #include "stdio.h"
 #include "string.h"
 
-
 void init_ini(const char* file, IniFile* ini)
 {
     char buffer[512];
@@ -14,42 +13,40 @@ void init_ini(const char* file, IniFile* ini)
     }
 
     while (fgets(buffer, sizeof(buffer), fp)) {
-      
         buffer[strcspn(buffer, "\n")] = 0; 
-
+		if(buffer[0] == '\n') continue;
+		
 		if(buffer[0] == '('){
 			char* end = strchr(buffer, ')');
-			int len = end - buffer - 1;
-			strncpy(ini->sections[ini->count].name, buffer + 1, len);
-			ini->sections[ini->count].name[len] = '\0';
-			ini->sections[ini->count].size = 0; 
-			ini->count++;
+			if(end){
+				*end = '\0';
+				ConfigEntry* entry = &ini->sections[ini->count];
+				snprintf(entry->name , MAX_CHAR , "%s" , buffer+1);
+				entry->size = 0; 
+				ini->count++;
+				continue;
+			}
 			continue;
 		}
 		if (ini->count == 0) continue;
-		ConfigEntry* current = &ini->sections[ini->count - 1];
-
 		char* Key = strtok(buffer, ":");
 		char* Value = strtok(NULL, "");
-		if (Key && Value && current->size < MAX_KEYS) {
+		
+		ConfigEntry* current = &ini->sections[ini->count - 1];
+
+		if (Key && Value) {
 			
 			while(*Key == ' ') Key++;  
 			while(*Value == ' ') Value++;
-			if(*Value == '"') Value++;
 
-            strncpy(current->parms[current->size].key, Key, 63);
-            current->parms[current->size].key[63] = 0;
-
-            strncpy(current->parms[current->size].value, Value, 255);
-            current->parms[current->size].value[255] = 0;
-
+            snprintf(current->parms[current->size].key , MAX_CHAR , "%s" , Key);
+            snprintf(current->parms[current->size].value , MAX_CHAR , "%s" , Value);
             current->size++;
         }
     }
 	
 
     fclose(fp);
-	
 }
 
 ConfigEntry getElementComponents( const char* comp, IniFile* ini)
